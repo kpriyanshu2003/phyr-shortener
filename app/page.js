@@ -146,7 +146,9 @@ export default function Home() {
                           width:
                             customUrl.length == 0
                               ? "30px"
-                              : `${customUrl.length * 8 + 10}px`,
+                              : customUrl.length < 20
+                              ? `${customUrl.length * 8 + 10}px`
+                              : "170px",
                         }}
                         onChange={(e) => {
                           setCustomUrl(e.target.value);
