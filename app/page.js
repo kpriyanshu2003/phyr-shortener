@@ -153,7 +153,7 @@ export default function Home() {
                         onChange={(e) => {
                           setCustomUrl(e.target.value);
                         }}
-                        className="bg-transparent ml-1 text-neutral-200 text-left placeholder:text-neutral-500 outline-none text-sm"
+                        className="bg-transparent ml-1 text-neutral-200 text-right placeholder:text-neutral-500 outline-none text-sm"
                         type="text"
                         name=""
                       />
@@ -162,7 +162,7 @@ export default function Home() {
                   <div className="text-sm text-neutral-400 flex items-center justify-between mt-5">
                     <div className="w-fit flex items-center space-x-2">
                       <LockIcon />
-                      <p>Potected</p>
+                      <p>Protected</p>
                     </div>
                     <div className="flex items-center text-right dark">
                       <Switch
