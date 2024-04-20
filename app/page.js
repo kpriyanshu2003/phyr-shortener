@@ -80,42 +80,49 @@ export default function Home() {
 
           <div className="w-full mx-auto max-w-xl bg-stone-900 shadow-xl shadow-neutral-300 rounded-xl mt-8">
             <div className="px-5">
-              <input
-                className="bg-transparent mt-5 resize-none text-neutral-200 placeholder:text-neutral-500 w-full outline-none text-sm"
-                onChange={(e) => {
-                  if (e.target.value.length > 0) {
-                    setOpen(true);
-                  } else {
-                    setOpen(false);
-                  }
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert("Shortening link...");
                 }}
-                type="text"
-                placeholder="paste your link here, e.g. https://example.com"
-                name=""
-                id=""
-              />
+              >
+                <input
+                  className="bg-transparent mt-5 resize-none text-neutral-200 placeholder:text-neutral-500 w-full outline-none text-sm"
+                  onChange={(e) => {
+                    if (e.target.value.length > 0) {
+                      setOpen(true);
+                    } else {
+                      setOpen(false);
+                    }
+                  }}
+                  type="text"
+                  placeholder="paste your link here, e.g. https://example.com"
+                  name=""
+                  id=""
+                />
 
-              <div className="flex items-center justify-between mt-8 pb-5">
-                <Button
-                  onClick={() => setOpen(!open)}
-                  className={`${
-                    open
-                      ? "bg-stone-700 text-stone-200"
-                      : "bg-stone-950 text-stone-100"
-                  }`}
-                  isIconOnly
-                >
-                  <CustomizeIcon />
-                </Button>
-                <Button className="bg-stone-100 text-stone-900">
-                  <div className="flex space-x-1">
-                    <span className="">
-                      <UpIcon />
-                    </span>
-                    <span>Shorten</span>
-                  </div>
-                </Button>
-              </div>
+                <div className="flex items-center justify-between mt-8 pb-5">
+                  <Button
+                    onClick={() => setOpen(!open)}
+                    className={`${
+                      open
+                        ? "bg-stone-700 text-stone-200"
+                        : "bg-stone-950 text-stone-100"
+                    }`}
+                    isIconOnly
+                  >
+                    <CustomizeIcon />
+                  </Button>
+                  <Button className="bg-stone-100 text-stone-900">
+                    <div className="flex space-x-1">
+                      <span className="">
+                        <UpIcon />
+                      </span>
+                      <span>Shorten</span>
+                    </div>
+                  </Button>
+                </div>
+              </form>
 
               <div
                 style={{
@@ -128,7 +135,7 @@ export default function Home() {
                   <div className="text-sm text-neutral-400 flex items-center justify-between">
                     <div className="w-fit flex items-center space-x-2">
                       <StarIcon />
-                      <p>Custom branding</p>
+                      <p>Custom alias</p>
                     </div>
                     <div className="flex items-center text-right">
                       <p>sh.phyr.in /</p>
@@ -140,12 +147,12 @@ export default function Home() {
                             ? customUrl.length > 20
                               ? 20
                               : customUrl.length
-                            : 4
+                            : 3
                         }
                         onChange={(e) => {
                           setCustomUrl(e.target.value);
                         }}
-                        className="bg-transparent max-w-sm ml-2 text-neutral-200 text-left w-fit placeholder:text-neutral-500 outline-none text-sm"
+                        className="bg-transparent max-w-sm ml-2 text-neutral-200 text-right w-fit placeholder:text-neutral-500 outline-none text-sm"
                         type="text"
                         name=""
                       />
@@ -154,7 +161,7 @@ export default function Home() {
                   <div className="text-sm text-neutral-400 flex items-center justify-between mt-5">
                     <div className="w-fit flex items-center space-x-2">
                       <LockIcon />
-                      <p>Password potected</p>
+                      <p>Potected</p>
                     </div>
                     <div className="flex items-center text-right dark">
                       <Switch
