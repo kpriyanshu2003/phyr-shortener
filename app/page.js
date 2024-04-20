@@ -1,5 +1,6 @@
 "use client";
 
+import { createLink } from "@/actions/link";
 import {
   CommandIcon,
   CustomizeIcon,
@@ -17,9 +18,26 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [customUrl, setCustomUrl] = useState("");
+  const [url, setUrl] = useState("");
+  const [password, setPassword] = useState("");
   const [isPassEnabled, setIsPassEnabled] = useState(false);
   const [isPassVisible, setIsPassVisible] = useState(false);
 
+  const handleSubmit = async () => {
+    console.log("submitted");
+    const ipv4 = await fetch("https://ipv4.icanhazip.com");
+    createLink({
+      url,
+      publicId: customUrl,
+      ipAddr: (await ipv4.text()).trim(),
+      password,
+    })
+      .then((res) => {
+        if (res.success) console.log("https://sh.phyr.in/" + res.link.publicId);
+        else console.error(res.error);
+      })
+      .catch((e) => console.error(e));
+  };
   return (
     <div>
       <nav className="h-20">
@@ -81,20 +99,22 @@ export default function Home() {
           <div className="w-full mx-auto max-w-xl bg-stone-900 shadow-xl shadow-neutral-300 rounded-xl mt-8">
             <div className="px-5">
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  alert("Shortening link...");
+                  await handleSubmit();
                 }}
               >
                 <input
                   className="bg-transparent mt-5 resize-none text-neutral-200 placeholder:text-neutral-500 w-full outline-none text-sm"
                   onChange={(e) => {
+                    setUrl(e.target.value);
                     if (e.target.value.length > 0) {
                       setOpen(true);
                     } else {
                       setOpen(false);
                     }
                   }}
+                  value={url}
                   type="text"
                   placeholder="paste your link here, e.g. https://example.com"
                   name=""
@@ -113,7 +133,7 @@ export default function Home() {
                   >
                     <CustomizeIcon />
                   </Button>
-                  <Button className="bg-stone-100 text-stone-900">
+                  <Button className="bg-stone-100 text-stone-900" type="submit">
                     <div className="flex space-x-1">
                       <span className="">
                         <UpIcon />
@@ -177,6 +197,8 @@ export default function Home() {
                     <div className="flex items-center text-right dark">
                       <input
                         type="text"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         placeholder="・・・・・・・"
                         size={15}
                         className="px-3 pb-1 rounded-none bg-transparent border-neutral-600 outline-none focus-within:border-neutral-500 text-right border-b transition-all"
