@@ -147,13 +147,13 @@ export default function Home() {
                             customUrl.length == 0
                               ? "30px"
                               : customUrl.length < 20
-                              ? `${customUrl.length * 8 + 10}px`
+                              ? `${customUrl.length * 9 + 10}px`
                               : "170px",
                         }}
                         onChange={(e) => {
                           setCustomUrl(e.target.value);
                         }}
-                        className="bg-transparent ml-1 text-neutral-200 text-right placeholder:text-neutral-500 outline-none text-sm"
+                        className="bg-transparent ml-1 text-neutral-200 text-left placeholder:text-neutral-500 outline-none text-sm"
                         type="text"
                         name=""
                       />
