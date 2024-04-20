@@ -142,17 +142,16 @@ export default function Home() {
                       <input
                         placeholder="alias"
                         id="custom-url"
-                        size={
-                          customUrl.length > 0
-                            ? customUrl.length > 20
-                              ? 20
-                              : customUrl.length
-                            : 3
-                        }
+                        style={{
+                          width:
+                            customUrl.length == 0
+                              ? "30px"
+                              : `${customUrl.length * 8 + 10}px`,
+                        }}
                         onChange={(e) => {
                           setCustomUrl(e.target.value);
                         }}
-                        className="bg-transparent max-w-sm ml-1 text-neutral-200 text-left w-fit placeholder:text-neutral-500 outline-none text-sm"
+                        className="bg-transparent ml-1 text-neutral-200 text-left placeholder:text-neutral-500 outline-none text-sm"
                         type="text"
                         name=""
                       />
