@@ -12,7 +12,7 @@ import {
   UpIcon,
 } from "@/static/icons";
 import { Button, Kbd, Spacer, Switch } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -140,20 +140,12 @@ export default function Home() {
                     <div className="flex items-center text-right">
                       <p>sh.phyr.in /</p>
                       <input
-                        placeholder="alias"
+                        placeholder="custom-brand-url"
                         id="custom-url"
-                        style={{
-                          width:
-                            customUrl.length == 0
-                              ? "30px"
-                              : customUrl.length < 20
-                              ? `${customUrl.length * 9 + 10}px`
-                              : "170px",
-                        }}
                         onChange={(e) => {
                           setCustomUrl(e.target.value);
                         }}
-                        className="bg-transparent ml-1 text-neutral-200 text-left placeholder:text-neutral-500 outline-none text-sm"
+                        className="bg-transparent w-32 pl-1 text-neutral-200 text-left placeholder:text-neutral-500 outline-none text-sm"
                         type="text"
                         name=""
                       />
@@ -175,11 +167,11 @@ export default function Home() {
                   <div
                     style={{
                       width: "100%",
-                      height: isPassEnabled ? "auto" : "0px",
+                      height: isPassEnabled ? "25px" : "0px",
                     }}
                     className="text-sm text-neutral-400 flex items-center justify-between mt-5 overflow-hidden transition-all duration-300"
                   >
-                    <div className="w-fit flex items-center space-x-2 pl-7">
+                    <div className="w-fit flex items-center space-x-2 border-l border-neutral-500 ml-3 pl-7">
                       <p>Set a password</p>
                     </div>
                     <div className="flex items-center text-right dark">
