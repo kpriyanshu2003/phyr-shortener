@@ -36,7 +36,6 @@ export default function Home() {
       url,
       publicId: customUrl,
       ipAddr: ip.data.publicIP,
-      isPassEnabled,
       password,
     });
     // const ipv4 = await fetch("https://ipv4.icanhazip.com");
