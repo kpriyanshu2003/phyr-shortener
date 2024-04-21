@@ -1,6 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { createLink } from "@/actions/link";
+import Features from "@/components/Fragments/Features";
+import GlobalState from "@/context/GlobalState";
+import { createLink } from "@/prisma/link";
 import {
   CommandIcon,
   CustomizeIcon,
@@ -9,84 +13,81 @@ import {
   IconRight,
   Keyicon,
   LockIcon,
+  RightTop,
   StarIcon,
   UpIcon,
 } from "@/static/icons";
 import { Button, Kbd, Spacer, Switch } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [customUrl, setCustomUrl] = useState("");
-  const [url, setUrl] = useState("");
+  const { url, setUrl } = useContext(GlobalState);
   const [password, setPassword] = useState("");
   const [isPassEnabled, setIsPassEnabled] = useState(false);
   const [isPassVisible, setIsPassVisible] = useState(false);
 
   const handleSubmit = async () => {
     console.log("submitted");
-    const ipv4 = await fetch("https://ipv4.icanhazip.com");
-    createLink({
-      url,
-      publicId: customUrl,
-      ipAddr: (await ipv4.text()).trim(),
-      password,
-    })
-      .then((res) => {
-        if (res.success) console.log("https://sh.phyr.in/" + res.link.publicId);
-        else console.error(res.error);
-      })
-      .catch((e) => console.error(e));
+    // const ipv4 = await fetch("https://ipv4.icanhazip.com");
+    // createLink({
+    //   url,
+    //   publicId: customUrl,
+    //   ipAddr: (await ipv4.text()).trim(),
+    //   password,
+    // })
+    //   .then((res) => {
+    //     if (res.success) console.log("https://sh.phyr.in/" + res.link.publicId);
+    //     else console.error(res.error);
+    //   })
+    //   .catch((e) => console.error(e));
   };
+
+  useEffect(() => {
+    if (url.length > 0) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }, [url]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && (e.key === "v" || e.key === "V")) {
+        navigator.clipboard
+          .readText()
+          .then((text) => {
+            setUrl(text);
+            console.log("Pasted content: ", text);
+          })
+          .catch((err) => {
+            console.error("Failed to read clipboard contents: ", err);
+          });
+      } else if (e.metaKey && (e.key === "v" || e.key === "V")) {
+        navigator.clipboard
+          .readText()
+          .then((text) => {
+            setUrl(text);
+            console.log("Pasted content: ", text);
+          })
+          .catch((err) => {
+            console.error("Failed to read clipboard contents: ", err);
+          });
+      }
+    });
+
+    return () => {
+      window.removeEventListener("keydown", () => {});
+    };
+  }, []);
+
   return (
     <div>
-      <nav className="h-20">
-        <div className="flex h-full items-center max-w-7xl mx-auto justify-between">
-          <div className="flex items-center">
-            <div className="h-12 w-12 bg-neutral-200 rounded-full"></div>
-            <h2 className=" font-semibold ml-4 text-lg">Shortener.</h2>
-          </div>
-
-          <ul className="flex items-center space-x-8 text-sm">
-            <li>Home</li>
-            <li>Pricing</li>
-            <li>API Docs</li>
-            <li>Customization</li>
-            <li>Products</li>
-          </ul>
-
-          <div className="flex items-center space-x-7">
-            <Button
-              radius="full"
-              className="bg-neutral-900 text-white w-fit px-4"
-            >
-              <div className="flex space-x-2 px-2 items-center">
-                <span>Paste</span>
-                <CommandIcon />
-              </div>
-            </Button>
-            <button className="text-sm">Feedback</button>
-          </div>
-        </div>
-      </nav>
-
-      <div className="py-[1px] bg-gradient-to-r from-gray-50 to-gray-50 via-lime-100">
-        <div className="py-3 bg-gradient-to-r from-white/90 to-white/90 via-white/80 flex items-center">
-          <div className="w-fit flex items-center text-neutral-800 text-sm mx-auto">
-            <span className="h-8 w-8 flex items-center justify-center bg-lime-100 rounded-full mr-4">
-              🎉
-            </span>
-            <span>API documentation is now available</span>
-            <span className="ml-3">
-              <IconRight />
-            </span>
-          </div>
-        </div>
-      </div>
-
       <Spacer y={100} />
 
-      <div className="w-full h-[400px]">
+      <div className="w-full">
         <div className="max-w-3xl mx-auto h-full">
           <h2 className="text-4xl text-center font-semibold">
             Shorten. Share. Analyze.
@@ -108,17 +109,12 @@ export default function Home() {
                   className="bg-transparent mt-5 resize-none text-neutral-200 placeholder:text-neutral-500 w-full outline-none text-sm"
                   onChange={(e) => {
                     setUrl(e.target.value);
-                    if (e.target.value.length > 0) {
-                      setOpen(true);
-                    } else {
-                      setOpen(false);
-                    }
                   }}
                   value={url}
                   type="text"
                   placeholder="paste your link here, e.g. https://example.com"
                   name=""
-                  id=""
+                  id="main-url"
                 />
 
                 <div className="flex items-center justify-between mt-8 pb-5">
@@ -126,8 +122,8 @@ export default function Home() {
                     onClick={() => setOpen(!open)}
                     className={`${
                       open
-                        ? "bg-stone-700 text-stone-200"
-                        : "bg-stone-950 text-stone-100"
+                        ? "bg-stone-900 text-stone-200 border border-neutral-600"
+                        : "bg-stone-950 text-stone-100 border border-stone-900"
                     }`}
                     isIconOnly
                   >
@@ -147,33 +143,43 @@ export default function Home() {
               <div
                 style={{
                   width: "100%",
-                  height: open ? "170px" : "0px",
+                  height: open ? (isPassEnabled ? "250px" : "180px") : "0px",
+                  paddingBottom: open
+                    ? isPassEnabled
+                      ? "20px"
+                      : "20px"
+                    : "0px",
+                  opacity: open ? 1 : 0,
                 }}
                 className="transition-all duration-700 w-full mb-5 rounded-lg overflow-hidden"
               >
-                <div className="h-[90%] w-full bg-neutral-700/20 rounded-lg p-5">
+                <div className="h-[100%] w-full bg-neutral-700/20 rounded-lg p-5">
                   <div className="text-sm text-neutral-400 flex items-center justify-between">
                     <div className="w-fit flex items-center space-x-2">
-                      <StarIcon />
+                      <span className="text-neutral-300">
+                        <StarIcon />
+                      </span>
                       <p>Custom alias</p>
                     </div>
-                    <div className="flex items-center text-right">
-                      <p>sh.phyr.in /</p>
-                      <input
-                        placeholder="custom-brand-url"
-                        id="custom-url"
-                        onChange={(e) => {
-                          setCustomUrl(e.target.value);
-                        }}
-                        className="bg-transparent w-32 pl-1 text-neutral-200 text-left placeholder:text-neutral-500 outline-none text-sm"
-                        type="text"
-                        name=""
-                      />
-                    </div>
+                  </div>
+                  <div className="flex whitespace-nowrap bg-neutral-950 py-3 rounded-md items-center text-right text-neutral-300 ml-1 pl-4 mt-4 text-sm">
+                    <p className=" shrink-0">sh.phyr.in /</p>
+                    <input
+                      placeholder="custom-brand-url"
+                      id="custom-url"
+                      onChange={(e) => {
+                        setCustomUrl(e.target.value);
+                      }}
+                      className="bg-transparent w-full pl-1 appearance-none text-neutral-200 text-left placeholder:text-neutral-500 outline-none text-sm"
+                      type="text"
+                      name=""
+                    />
                   </div>
                   <div className="text-sm text-neutral-400 flex items-center justify-between mt-5">
                     <div className="w-fit flex items-center space-x-2">
-                      <LockIcon />
+                      <span className="text-neutral-200">
+                        <LockIcon />
+                      </span>
                       <p>Protected</p>
                     </div>
                     <div className="flex items-center text-right dark">
@@ -187,11 +193,13 @@ export default function Home() {
                   <div
                     style={{
                       width: "100%",
-                      height: isPassEnabled ? "25px" : "0px",
+                      height: isPassEnabled ? "50px" : "0px",
+                      marginTop: isPassEnabled ? "20px" : "0px",
+                      opacity: isPassEnabled ? 1 : 0,
                     }}
-                    className="text-sm text-neutral-400 flex items-center justify-between mt-5 overflow-hidden transition-all duration-300"
+                    className="text-sm text-neutral-400 flex items-center justify-between overflow-hidden transition-all duration-500"
                   >
-                    <div className="w-fit flex items-center space-x-2 border-l border-neutral-500 ml-3 pl-7">
+                    <div className="w-fit flex items-center space-x-2 border-l border-neutral-500 ml-2 pl-7">
                       <p>Set a password</p>
                     </div>
                     <div className="flex items-center text-right dark">
@@ -218,6 +226,44 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="flex gap-3 mt-7 items-center justify-center">
+        <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
+          <span>History</span>
+          <RightTop />
+        </div>
+        <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
+          <span>Analytics</span>
+          <RightTop />
+        </div>
+      </div>
+
+      <img
+        src="https://substackcdn.com/image/fetch/w_1200,h_600,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Faebc98ba-7fef-4b55-8763-12f7b76f46ec_1620x1080.png"
+        className="h-32 mx-auto mt-16"
+        alt=""
+      />
+
+      <Features />
+
+      <div className="flex items-center justify-center mt-32">
+        <Link href="https://phyr.global" className="w-fit mx-auto">
+          <div className="w-fit flex items-center border rounded-xl border-neutral-200 p-3 shadow-xl shadow-neutral-100/0 transition-all hover:shadow-neutral-200 hover:scale-100">
+            <div className="h-14 w-14 rounded-md bg-lime-300 p-2">
+              <img src="/phyr-logo.svg" className="h-full w-full" alt="" />
+            </div>
+            <div className="ml-4">
+              <div className="flex items-start justify-between">
+                <h3 className="text-lg font-semibold">Phyr Studios</h3>
+                <RightTop />
+              </div>
+              <p className="text-sm mt-1 text-neutral-600">
+                design, develop, and deploy digital products.
+              </p>
+            </div>
+          </div>
+        </Link>
       </div>
     </div>
   );

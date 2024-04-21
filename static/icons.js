@@ -88,8 +88,8 @@ export const LockIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
+      width="17"
+      height="17"
       viewBox="0 0 24 24"
     >
       <g fill="none" stroke="currentColor" stroke-width="1.55">
@@ -168,6 +168,45 @@ export const EyeOpen = () => {
         <path d="M3 13c3.6-8 14.4-8 18 0" />
         <path fill="currentColor" d="M12 17a3 3 0 1 1 0-6a3 3 0 0 1 0 6" />
       </g>
+    </svg>
+  );
+};
+
+export const RightTop = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 21 21"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M14.5 13.5v-7h-7m7 0l-8 8"
+      />
+    </svg>
+  );
+};
+
+export const MenuIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.55"
+        d="M4 12h16M4 6h16M4 18h16"
+      />
     </svg>
   );
 };
