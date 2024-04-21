@@ -1,4 +1,4 @@
-// import { createLink } from "@/prisma/link";
+import { createLink } from "@/prisma/link";
 
 export async function POST(req) {
   let data = await req.json();
@@ -9,6 +9,6 @@ export async function POST(req) {
     });
 
   // TODO : Handle Errors
-  // const result = createLink(data);
+  const result = createLink(data);
   return Response.json(result);
 }
