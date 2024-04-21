@@ -76,6 +76,7 @@ export default function Home() {
         ipAddr: ip,
         password: password.trim(),
       };
+
       createLink(uObj)
         .then((res) => {
           if (res.success) {
