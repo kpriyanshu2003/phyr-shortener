@@ -78,7 +78,7 @@ export default function Home() {
       let uObj = {
         url: url.trim(),
         publicId: customUrl.trim(),
-        ipAddr: ip,
+        ipAddr: ip.data,
         password: password.trim(),
       };
 
@@ -95,8 +95,8 @@ export default function Home() {
             toast.success("Success");
           } else {
             toast.remove();
-            toast.error(res.error);
-            console.log(res.error);
+            toast.error(res.message);
+            console.log(res.message);
             setIsLoading(false);
           }
         })
