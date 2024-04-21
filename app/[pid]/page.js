@@ -1,3 +1,4 @@
+import Invalid from "@/components/Forms/Invalid";
 import PasswordForm from "@/components/Forms/PasswordForm";
 import { getLink } from "@/prisma/link";
 import { redirect } from "next/navigation";
@@ -23,7 +24,7 @@ async function page({ params }) {
       return redirect(data.link.url);
     }
   } else {
-    return <div>Link not found</div>;
+    return <Invalid />;
   }
 }
 

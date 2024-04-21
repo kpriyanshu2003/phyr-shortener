@@ -2,19 +2,26 @@
 import GlobalState from "@/context/GlobalState";
 import { CommandIcon, IconRight, MenuIcon } from "@/static/icons";
 import { Button } from "@nextui-org/react";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useContext } from "react";
 
 function Navbar() {
+  const pathname = usePathname();
+  const router = useRouter();
   const { url, setUrl } = useContext(GlobalState);
   const handlePaste = () => {
-    navigator.clipboard
-      .readText()
-      .then((text) => {
-        setUrl(text);
-      })
-      .catch((err) => {
-        console.error("Failed to read clipboard contents: ", err);
-      });
+    if (pathname == "/") {
+      navigator.clipboard
+        .readText()
+        .then((text) => {
+          setUrl(text);
+        })
+        .catch((err) => {
+          console.error("Failed to read clipboard contents: ", err);
+        });
+    } else {
+      router.push("/");
+    }
   };
   return (
     <>
@@ -40,7 +47,7 @@ function Navbar() {
               className="bg-neutral-900 text-white w-fit px-4"
             >
               <div className="flex space-x-2 px-2 items-center">
-                <span>Paste</span>
+                <span>{pathname == "/" ? "Paste" : "Shorten"}</span>
                 <CommandIcon />
               </div>
             </Button>

@@ -57,7 +57,6 @@ function PasswordForm({ pid }) {
           The link you are trying to access is protected by a password. Please
           enter the password to continue.
         </p>
-        <a id="rel-a" href="" target="_self"></a>
         <form
           onSubmit={handleSubmit}
           className="flex items-center mx-auto justify-center mt-12 border-b w-fit pb-3 focus-within:border-neutral-300 transition-all"
