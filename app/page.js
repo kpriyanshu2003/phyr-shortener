@@ -30,6 +30,7 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const [isPassEnabled, setIsPassEnabled] = useState(false);
   const [isPassVisible, setIsPassVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const IsUrlValid = (str) => {
     var pattern = new RegExp(
@@ -45,10 +46,33 @@ export default function Home() {
   };
 
   const handleSubmit = async () => {
-    if (!IsUrlValid(url)) {
+    if (url.length === 0) {
+      toast.error("URL is required");
+      return;
+    } else if (!IsUrlValid(url)) {
       toast.error("Invalid URL");
+      return;
+    } else if (customUrl.length > 0 && customUrl.length < 3) {
+      toast.error("Custom URL must be at least 3 characters long");
+      return;
+    } else if (customUrl.length > 0 && customUrl.length > 20) {
+      toast.error("Custom URL must be at most 20 characters long");
+      return;
+    } else if (isPassEnabled && password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    } else {
+      setIsLoading(true);
+      toast.loading("Shortening URL...");
+      let ip = await axios.get("/api/ip");
+      let uObj = {
+        url: url.trim(),
+        publicId: customUrl.trim(),
+        ipAddr: ip.data.publicIP.trim(),
+        password: password.trim(),
+      };
     }
-    let ip = await axios.get("/api/ip");
+
     console.log({
       url,
       publicId: customUrl,
@@ -137,7 +161,6 @@ export default function Home() {
                   }}
                   value={url}
                   type="text"
-                  required
                   placeholder="paste your link here, e.g. https://example.com"
                   name=""
                   id="main-url"
@@ -156,11 +179,18 @@ export default function Home() {
                   >
                     <CustomizeIcon />
                   </Button>
-                  <Button className="bg-stone-100 text-stone-900" type="submit">
+                  <Button
+                    isLoading={isLoading}
+                    isDisabled={isLoading}
+                    className="bg-stone-100 text-stone-900"
+                    type="submit"
+                  >
                     <div className="flex space-x-1">
-                      <span className="">
-                        <UpIcon />
-                      </span>
+                      {isLoading == false && (
+                        <span className="">
+                          <UpIcon />
+                        </span>
+                      )}
                       <span>Shorten</span>
                     </div>
                   </Button>
@@ -178,7 +208,7 @@ export default function Home() {
                     : "0px",
                   opacity: open ? 1 : 0,
                 }}
-                className="transition-all duration-700 w-full mb-5 rounded-lg overflow-hidden"
+                className="transition-all duration-500 w-full mb-5 rounded-lg overflow-hidden"
               >
                 <div className="h-[100%] w-full bg-neutral-700/20 rounded-lg p-5">
                   <div className="text-sm text-neutral-400 flex items-center justify-between">
@@ -233,7 +263,7 @@ export default function Home() {
                     </div>
                     <div className="flex items-center text-right dark">
                       <input
-                        type={isPassVisible ? "text" : "password"}
+                        type={isPassVisible ? "text" : "text"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="・・・・・・・"
