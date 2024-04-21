@@ -32,16 +32,22 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const IsUrlValid = (str) => {
-    // check if starts with https, https & has no spaces
+    var pattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    ); // fragment locator
 
-    if (str.startsWith("https://") || str.startsWith("http://")) {
-      if (str.includes(" ")) {
-        return false;
-      } else {
-        return true;
-      }
-    }
-    return false;
+    var localhost = new RegExp(
+      "^(https?:\\/\\/)?(localhost)(:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$",
+      "i"
+    );
+
+    return !!pattern.test(str) || !!localhost.test(str);
   };
 
   const handleSubmit = async () => {
