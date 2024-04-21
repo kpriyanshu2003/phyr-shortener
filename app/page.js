@@ -21,6 +21,7 @@ import { Button, Kbd, Spacer, Switch } from "@nextui-org/react";
 import axios from "axios";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -30,7 +31,23 @@ export default function Home() {
   const [isPassEnabled, setIsPassEnabled] = useState(false);
   const [isPassVisible, setIsPassVisible] = useState(false);
 
+  const IsUrlValid = (str) => {
+    var pattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    ); // fragment locator
+    return !!pattern.test(str);
+  };
+
   const handleSubmit = async () => {
+    if (!IsUrlValid(url)) {
+      toast.error("Invalid URL");
+    }
     let ip = await axios.get("/api/ip");
     console.log({
       url,
@@ -107,6 +124,7 @@ export default function Home() {
           <div className="w-full mx-auto max-w-xl bg-stone-900 shadow-xl shadow-neutral-300 rounded-xl mt-8">
             <div className="px-5">
               <form
+                autoComplete="off"
                 onSubmit={async (e) => {
                   e.preventDefault();
                   await handleSubmit();
@@ -175,6 +193,8 @@ export default function Home() {
                     <p className=" shrink-0">sh.phyr.in /</p>
                     <input
                       placeholder="custom-brand-url"
+                      autoComplete="off"
+                      autoCapitalize="off"
                       id="custom-url"
                       onChange={(e) => {
                         setCustomUrl(e.target.value);
