@@ -51,6 +51,7 @@ export default function Home() {
   };
 
   const handleSubmit = async () => {
+    if (!isPassEnabled) setPassword("");
     if (url.length === 0) {
       toast.error("URL is required");
       return;
