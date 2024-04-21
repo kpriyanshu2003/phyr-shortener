@@ -6,12 +6,9 @@ import Features from "@/components/Fragments/Features";
 import GlobalState from "@/context/GlobalState";
 import { createLink } from "@/prisma/link";
 import {
-  CommandIcon,
   CustomizeIcon,
   EyeClosed,
   EyeOpen,
-  IconRight,
-  Keyicon,
   LockIcon,
   RightTop,
   StarIcon,
@@ -34,16 +31,16 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const IsUrlValid = (str) => {
-    var pattern = new RegExp(
-      "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
-      "i"
-    ); // fragment locator
-    return !!pattern.test(str);
+    // check if starts with https, https & has no spaces
+
+    if (str.startsWith("https://") || str.startsWith("http://")) {
+      if (str.includes(" ")) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    return false;
   };
 
   const handleSubmit = async () => {
@@ -84,7 +81,11 @@ export default function Home() {
             toast.remove();
             setIsLoading(false);
             toast.success("Success");
-          } else console.error(res.error);
+          } else {
+            toast.remove();
+            toast.error(res.error);
+            setIsLoading(false);
+          }
         })
         .catch((e) => console.error(e));
     }
@@ -223,6 +224,7 @@ export default function Home() {
                       autoComplete="off"
                       autoCapitalize="off"
                       id="custom-url"
+                      value={customUrl}
                       onChange={(e) => {
                         setCustomUrl(e.target.value);
                       }}

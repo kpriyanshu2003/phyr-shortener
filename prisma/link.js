@@ -21,7 +21,7 @@ export const createLink = async (formData) => {
   } catch (e) {
     console.error(e);
     if (e.code === "P2002")
-      return { success: false, error: "Public ID already exists" };
+      return { success: false, error: "Custom alias exists" };
     return { success: false, error: e.message };
   }
 };
