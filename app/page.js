@@ -22,6 +22,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import randomstring from "randomstring";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -64,33 +65,27 @@ export default function Home() {
     } else {
       setIsLoading(true);
       toast.loading("Shortening URL...");
-      let ip = await axios.get("/api/ip");
+      // let ip = await axios.get("/api/ip");
+      let ip =
+        process.env.NODE_ENV === "development" && randomstring.generate(6);
+
       let uObj = {
         url: url.trim(),
         publicId: customUrl.trim(),
-        ipAddr: ip.data.publicIP.trim(),
+        ipAddr: ip,
         password: password.trim(),
       };
+      createLink(uObj)
+        .then((res) => {
+          if (res.success) {
+            console.log("https://sh.phyr.in/" + res.link.publicId);
+            toast.remove();
+            setIsLoading(false);
+            toast.success("Success");
+          } else console.error(res.error);
+        })
+        .catch((e) => console.error(e));
     }
-
-    console.log({
-      url,
-      publicId: customUrl,
-      ipAddr: ip.data.publicIP,
-      password,
-    });
-    // const ipv4 = await fetch("https://ipv4.icanhazip.com");
-    // createLink({
-    //   url,
-    //   publicId: customUrl,
-    //   ipAddr: (await ipv4.text()).trim(),
-    //   password,
-    // })
-    //   .then((res) => {
-    //     if (res.success) console.log("https://sh.phyr.in/" + res.link.publicId);
-    //     else console.error(res.error);
-    //   })
-    //   .catch((e) => console.error(e));
   };
 
   useEffect(() => {
