@@ -65,9 +65,10 @@ export default function Home() {
     } else {
       setIsLoading(true);
       toast.loading("Shortening URL...");
-      // let ip = await axios.get("/api/ip");
       let ip =
-        process.env.NODE_ENV === "development" && randomstring.generate(6);
+        process.env.NODE_ENV === "development"
+          ? randomstring.generate(6)
+          : await axios.get("/api/ip");
 
       let uObj = {
         url: url.trim(),
