@@ -35,7 +35,7 @@ function PasswordForm({ pid }) {
       });
   };
   return (
-    <div className="h-[calc(60vh)]">
+    <div className="h-[calc(80vh)]">
       <div className="max-w-xl mx-auto pt-20">
         <div className="flex mx-auto items-center rounded-full bg-lime-300 justify-center text-neutral-900 h-16 w-16">
           <svg
