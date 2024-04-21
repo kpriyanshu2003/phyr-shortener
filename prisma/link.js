@@ -14,7 +14,7 @@ export const createLink = async (formData) => {
         publicId: publicId || (await checkUnique(randomString.generate(6), 0)),
         ipAddr: ipAddr,
         analyticsId: await checkUnique(randomString.generate(6), 1),
-        password: password ? await bcrypt.hash(formData.password, 10) : null,
+        password: password ? await bcrypt.hash(password, 10) : null,
       },
     });
     console.log("link", link);
