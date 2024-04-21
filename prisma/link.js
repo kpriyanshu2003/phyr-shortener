@@ -2,16 +2,18 @@
 
 import bcrypt from "bcrypt";
 import prisma from "./prisma";
+import randomString from "randomstring";
+import { checkUnique } from "@/utils/checkUnique";
 
 export const createLink = async (formData) => {
   let { url, publicId, ipAddr, password } = formData;
-  password = password ? password.trim() : null;
   try {
     const link = await prisma.link.create({
       data: {
         url: url,
-        publicId: publicId,
+        publicId: publicId || (await checkUnique(randomString.generate(6), 0)),
         ipAddr: ipAddr,
+        analyticsId: await checkUnique(randomString.generate(6), 1),
         password: password ? await bcrypt.hash(formData.password, 10) : null,
       },
     });
