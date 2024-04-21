@@ -4,15 +4,15 @@ import bcrypt from "bcrypt";
 import prisma from "./prisma";
 
 export const createLink = async (formData) => {
+  let { url, publicId, ipAddr, password } = formData;
+  password = password ? password.trim() : null;
   try {
     const link = await prisma.link.create({
       data: {
-        url: formData.url,
-        publicId: formData.publicId,
-        ipAddr: formData.ipAddr,
-        password: formData.password
-          ? await bcrypt.hash(formData.password, 10)
-          : null,
+        url: url,
+        publicId: publicId,
+        ipAddr: ipAddr,
+        password: password ? await bcrypt.hash(formData.password, 10) : null,
       },
     });
     return { success: true, link };

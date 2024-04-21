@@ -1,4 +1,14 @@
+import { createLink } from "@/prisma/link";
+
 export async function POST(req) {
   let data = await req.json();
-  return Response.json({ message: "Hello World!", data: { ...data } });
+  if (!data.url || !data.publicId || !data.ipAddr)
+    return Response.json({
+      success: false,
+      message: "Missing required fields",
+    });
+
+  // TODO : Handle Errors
+  const result = createLink(data);
+  return Response.json(result);
 }
