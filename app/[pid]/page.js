@@ -12,7 +12,12 @@ async function page({ params }) {
   if (data.link) {
     if (data.link.password) {
       if (data.link.password.length == 0) {
-        return redirect(data.link.url);
+        let url = data.link.url;
+        if (url.startsWith("http://") || url.startsWith("https://")) {
+          return redirect(url);
+        } else {
+          return redirect("http://" + url);
+        }
       } else {
         return (
           <Suspense>
@@ -21,7 +26,12 @@ async function page({ params }) {
         );
       }
     } else {
-      return redirect(data.link.url);
+      let url = data.link.url;
+      if (url.startsWith("http://") || url.startsWith("https://")) {
+        return redirect(url);
+      } else {
+        return redirect("http://" + url);
+      }
     }
   } else {
     return <Invalid />;
