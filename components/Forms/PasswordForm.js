@@ -3,26 +3,30 @@
 import { verifyPassword } from "@/prisma/link";
 import { EyeClosed, EyeOpen, IconRight } from "@/static/icons";
 import { Button } from "@nextui-org/react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 function PasswordForm({ pid }) {
   const router = useRouter();
   const [isPassVisible, setIsPassVisible] = React.useState(false);
   const [password, setPassword] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async (e) => {
+    if (password.length == 0) {
+      toast.error("Password cannot be empty");
+    }
     e.preventDefault();
+    setLoading(true);
     verifyPassword(pid, password)
       .then((res) => {
         if (res.success) {
-          try {
-            router.push(res.url);
-          } catch (error) {
-            console.log(error);
-          }
+          setLoading(false);
+          router.push(res.url);
         } else {
-          alert(res.error);
+          toast.error(res.error);
+          setLoading(false);
         }
       })
       .catch((e) => {
@@ -78,6 +82,8 @@ function PasswordForm({ pid }) {
           <Button
             className="h-12 w-12 rounded-lg bg-neutral-200 flex items-center justify-center"
             isIconOnly
+            isLoading={loading}
+            isDisabled={loading}
             type="submit"
           >
             <IconRight />
