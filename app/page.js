@@ -82,7 +82,7 @@ export default function Home() {
         password: password.trim(),
       };
 
-      createLink(uObj)
+      createLink(JSON.stringify(uObj))
         .then((res) => {
           if (res.success) {
             console.log(

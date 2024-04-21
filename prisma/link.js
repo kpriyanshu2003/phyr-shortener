@@ -6,7 +6,7 @@ import { checkUnique } from "@/utils/checkUnique";
 import prisma from "./prisma";
 
 export const createLink = async (formData) => {
-  let { url, publicId, ipAddr, password } = formData;
+  let { url, publicId, ipAddr, password } = JSON.parse(formData);
   try {
     const link = await prisma.link.create({
       data: {
