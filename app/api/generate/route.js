@@ -9,6 +9,10 @@ export async function POST(req) {
     });
 
   // TODO : Handle Errors
-  const result = createLink(data);
-  return Response.json(result);
+  const { success, link, message } = await createLink(data);
+  return Response.json({
+    success,
+    link,
+    message,
+  });
 }

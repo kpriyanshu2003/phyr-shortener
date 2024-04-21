@@ -1,12 +1,10 @@
-"use server";
-
 import bcrypt from "bcrypt";
 import randomString from "randomstring";
 import { checkUnique } from "@/utils/checkUnique";
 import prisma from "./prisma";
 
 export const createLink = async (formData) => {
-  let { url, publicId, ipAddr, password } = JSON.parse(formData);
+  let { url, publicId, ipAddr, password } = formData;
   try {
     const link = await prisma.link.create({
       data: {
@@ -17,12 +15,17 @@ export const createLink = async (formData) => {
         password: password ? await bcrypt.hash(formData.password, 10) : null,
       },
     });
-    return { success: true, link };
+    console.log("link", link);
+    return {
+      success: true,
+      link,
+      message: "Link created successfully",
+    };
   } catch (e) {
     console.error(e);
     if (e.code === "P2002")
-      return { success: false, error: "Custom alias exists" };
-    return { success: false, error: e.message };
+      return { success: false, message: "Custom alias exists" };
+    return { success: false, message: e.message };
   }
 };
 
