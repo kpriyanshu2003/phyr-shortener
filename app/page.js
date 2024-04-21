@@ -51,7 +51,7 @@ export default function Home() {
       toast.error("URL is required");
       return;
     } else if (!IsUrlValid(url)) {
-      toast.error("Invalid URL");
+      toast.error("Page URL is invalid");
       return;
     } else if (customUrl.length > 0 && customUrl.length < 3) {
       toast.error("Custom URL must be at least 3 characters long");
