@@ -1,4 +1,4 @@
-import { CommandIcon } from "@/static/icons";
+import { CommandIcon, IconRight } from "@/static/icons";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import React from "react";
@@ -39,11 +39,11 @@ function Invalid() {
           <Link href="/">
             <Button
               radius="full"
-              className="bg-neutral-900 text-white w-fit px-4"
+              className="bg-neutral-200 text-neutral-800 w-fit px-4"
             >
               <div className="flex space-x-2 px-2 items-center">
-                <span>Shorten</span>
-                <CommandIcon />
+                <span>Shorten fresh</span>
+                <IconRight />
               </div>
             </Button>
           </Link>
