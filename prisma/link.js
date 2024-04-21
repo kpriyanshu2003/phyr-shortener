@@ -1,9 +1,9 @@
 "use server";
 
 import bcrypt from "bcrypt";
-import prisma from "./prisma";
 import randomString from "randomstring";
 import { checkUnique } from "@/utils/checkUnique";
+import prisma from "./prisma";
 
 export const createLink = async (formData) => {
   let { url, publicId, ipAddr, password } = formData;
