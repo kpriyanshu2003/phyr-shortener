@@ -18,6 +18,7 @@ import {
   UpIcon,
 } from "@/static/icons";
 import { Button, Kbd, Spacer, Switch } from "@nextui-org/react";
+import axios from "axios";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 
@@ -30,7 +31,14 @@ export default function Home() {
   const [isPassVisible, setIsPassVisible] = useState(false);
 
   const handleSubmit = async () => {
-    console.log("submitted");
+    let ip = await axios.get("/api/ip");
+    console.log({
+      url,
+      publicId: customUrl,
+      ipAddr: ip.data.publicIP,
+      isPassEnabled,
+      password,
+    });
     // const ipv4 = await fetch("https://ipv4.icanhazip.com");
     // createLink({
     //   url,
@@ -112,6 +120,7 @@ export default function Home() {
                   }}
                   value={url}
                   type="text"
+                  required
                   placeholder="paste your link here, e.g. https://example.com"
                   name=""
                   id="main-url"
@@ -119,6 +128,7 @@ export default function Home() {
 
                 <div className="flex items-center justify-between mt-8 pb-5">
                   <Button
+                    type="button"
                     onClick={() => setOpen(!open)}
                     className={`${
                       open
@@ -204,12 +214,12 @@ export default function Home() {
                     </div>
                     <div className="flex items-center text-right dark">
                       <input
-                        type="text"
+                        type={isPassVisible ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="・・・・・・・"
                         size={15}
-                        className="px-3 pb-1 rounded-none bg-transparent border-neutral-600 outline-none focus-within:border-neutral-500 text-right border-b transition-all"
+                        className="px-3 pb-1 rounded-none bg-transparent text-neutral-100 border-neutral-600 outline-none focus-within:border-neutral-500 text-right border-b transition-all"
                         name=""
                         id=""
                       />
