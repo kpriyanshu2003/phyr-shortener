@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import GlobalState from "@/context/GlobalState";
 import { CommandIcon, IconRight, MenuIcon } from "@/static/icons";
@@ -28,8 +29,8 @@ function Navbar() {
       <nav className="h-20">
         <div className="flex h-full items-center max-w-7xl mx-auto justify-between px-6">
           <div className="flex items-center">
-            <div className="h-12 w-12 bg-neutral-200 rounded-full"></div>
-            <h2 className=" font-semibold ml-4 text-lg">Shortener.</h2>
+            <img className="h-12" src="/logo.svg" alt="" />
+            <h2 className="font-semibold ml-2 text-lg">Shortener.</h2>
           </div>
 
           <ul className="hidden lg:flex items-center space-x-10 text-sm">
