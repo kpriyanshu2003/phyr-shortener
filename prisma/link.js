@@ -35,3 +35,17 @@ export const getLink = async (publicId) => {
     return { success: false, error: e.message };
   }
 };
+
+export const verifyPassword = async (publicId, password) => {
+  try {
+    const link = await prisma.link.findUnique({ where: { publicId } });
+    if (await bcrypt.compare(password, link.password)) {
+      return { success: true, url: link.url };
+    } else {
+      return { success: false, error: "Invalid password" };
+    }
+  } catch (e) {
+    console.error(e);
+    return { success: false, error: e.message };
+  }
+};
