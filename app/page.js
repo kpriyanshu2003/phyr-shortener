@@ -84,7 +84,11 @@ export default function Home() {
       createLink(uObj)
         .then((res) => {
           if (res.success) {
-            console.log("https://sh.phyr.in/" + res.link.publicId);
+            console.log(
+              (process.env.NODE_ENV === "development"
+                ? "http://localhost:3000/"
+                : "https://sh.phyr.in/") + res.link.publicId
+            );
             toast.remove();
             setIsLoading(false);
             toast.success("Success");
