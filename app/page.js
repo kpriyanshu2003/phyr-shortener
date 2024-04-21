@@ -4,6 +4,7 @@
 
 import Features from "@/components/Fragments/Features";
 import GlobalState from "@/context/GlobalState";
+import { createLink } from "@/prisma/link";
 import {
   CustomizeIcon,
   EyeClosed,
@@ -81,27 +82,25 @@ export default function Home() {
         password: password.trim(),
       };
 
-      let generateReq = await axios.post("/api/generate", uObj, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (generateReq.data.success) {
-        console.log(
-          (process.env.NODE_ENV === "development"
-            ? "http://localhost:3000/"
-            : "https://sh.phyr.in/") + generateReq.data.link.publicId
-        );
-        toast.remove();
-        setIsLoading(false);
-        toast.success("Success");
-      } else {
-        toast.remove();
-        toast.error(generateReq.data.message);
-        console.log(generateReq.data.error);
-        setIsLoading(false);
-      }
+      createLink(JSON.stringify(uObj))
+        .then((res) => {
+          if (res.success) {
+            console.log(
+              (process.env.NODE_ENV === "development"
+                ? "http://localhost:3000/"
+                : "https://sh.phyr.in/") + res.link.publicId
+            );
+            toast.remove();
+            setIsLoading(false);
+            toast.success("Success");
+          } else {
+            toast.remove();
+            toast.error(res.error);
+            console.log(res.error);
+            setIsLoading(false);
+          }
+        })
+        .catch((e) => console.error(e));
     }
   };
 

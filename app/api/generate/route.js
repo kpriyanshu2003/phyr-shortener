@@ -9,7 +9,7 @@ export async function POST(req) {
     });
 
   // TODO : Handle Errors
-  const { success, link, message } = await createLink(data);
+  const { success, link, message } = await createLink(JSON.stringify(data));
   return Response.json({
     success,
     link,
