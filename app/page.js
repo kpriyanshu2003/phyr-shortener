@@ -25,6 +25,7 @@ export default function Home() {
   const [open, setOpen] = useState(false);
   const [customUrl, setCustomUrl] = useState("");
   const { url, setUrl } = useContext(GlobalState);
+  const [tempUrl, setTempUrl] = useState(url);
   const [password, setPassword] = useState("");
   const [isPassEnabled, setIsPassEnabled] = useState(false);
   const [isPassVisible, setIsPassVisible] = useState(false);
@@ -106,7 +107,6 @@ export default function Home() {
           .readText()
           .then((text) => {
             setUrl(text);
-            console.log("Pasted content: ", text);
           })
           .catch((err) => {
             console.error("Failed to read clipboard contents: ", err);
@@ -116,7 +116,6 @@ export default function Home() {
           .readText()
           .then((text) => {
             setUrl(text);
-            console.log("Pasted content: ", text);
           })
           .catch((err) => {
             console.error("Failed to read clipboard contents: ", err);
