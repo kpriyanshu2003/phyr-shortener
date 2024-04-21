@@ -99,7 +99,7 @@ export default function Home() {
       } else {
         toast.remove();
         toast.error(generateReq.data.message);
-        console.log(res.error);
+        console.log(generateReq.data.error);
         setIsLoading(false);
       }
     }
