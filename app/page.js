@@ -82,7 +82,7 @@ export default function Home() {
         password: password.trim(),
       };
 
-      createLink(uObj)
+      createLink(JSON.stringify(uObj))
         .then((res) => {
           if (res.success) {
             console.log(
@@ -96,6 +96,7 @@ export default function Home() {
           } else {
             toast.remove();
             toast.error(res.error);
+            console.log(res.error);
             setIsLoading(false);
           }
         })
