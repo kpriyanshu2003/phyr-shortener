@@ -1,4 +1,4 @@
-import { CreateLink } from "@/prisma/cmd";
+import { createLink } from "@/prisma/cmd";
 
 export async function POST(req) {
   let data = await req.json();
@@ -9,7 +9,7 @@ export async function POST(req) {
     });
 
   // TODO : Handle Errors
-  const { success, link, message } = await CreateLink(JSON.stringify(data));
+  const { success, link, message } = await createLink(JSON.stringify(data));
   return Response.json({
     success,
     link,

@@ -20,87 +20,49 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import randomstring from "randomstring";
+import { validateUrl } from "@/utils/validateURL";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [customUrl, setCustomUrl] = useState("");
   const { url, setUrl } = useContext(GlobalState);
-  const [tempUrl, setTempUrl] = useState(url);
   const [password, setPassword] = useState("");
   const [isPassEnabled, setIsPassEnabled] = useState(false);
   const [isPassVisible, setIsPassVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const IsUrlValid = (str) => {
-    var pattern = new RegExp(
-      "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
-      "i"
-    ); // fragment locator
-
-    var localhost = new RegExp(
-      "^(https?:\\/\\/)?(localhost)(:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$",
-      "i"
-    );
-
-    return !!pattern.test(str) || !!localhost.test(str);
-  };
-
   const handleSubmit = async () => {
-    if (!isPassEnabled) setPassword("");
-    if (url.length === 0) {
-      toast.error("URL is required");
-      return;
-    } else if (!IsUrlValid(url)) {
-      toast.error("Page URL is invalid");
-      return;
-    } else if (customUrl.length > 0 && customUrl.length < 3) {
-      toast.error("Custom URL must be at least 3 characters long");
-      return;
-    } else if (customUrl.length > 0 && customUrl.length > 20) {
-      toast.error("Custom URL must be at most 20 characters long");
-      return;
-    } else if (isPassEnabled && password.length < 6) {
-      toast.error("Password must be at least 6 characters long");
-      return;
-    } else {
+    if (validateUrl(url, customUrl, isPassEnabled, password) == true) {
       setIsLoading(true);
       toast.loading("Shortening URL...");
-      let ip =
-        process.env.NODE_ENV === "development"
-          ? randomstring.generate(6)
-          : await axios.get("/api/ip");
+      let ip = await axios.get("/api/ip");
 
-      let uObj = {
+      let tempOBJ = {
         url: url.trim(),
         publicId: customUrl.trim(),
         ipAddr: ip.data,
         password: password.trim(),
       };
 
-      //   createLink(JSON.stringify(uObj))
-      //     .then((res) => {
-      //       if (res.success) {
-      //         console.log(
-      //           (process.env.NODE_ENV === "development"
-      //             ? "http://localhost:3000/"
-      //             : "https://sh.phyr.in/") + res.link.publicId
-      //         );
-      //         toast.remove();
-      //         setIsLoading(false);
-      //         toast.success("Success");
-      //       } else {
-      //         toast.remove();
-      //         toast.error(res.message);
-      //         console.log(res.message);
-      //         setIsLoading(false);
-      //       }
-      //     })
-      //     .catch((e) => console.error(e));
+      createLink(JSON.stringify(tempOBJ))
+        .then((res) => {
+          if (res.success) {
+            console.log(
+              (process.env.NODE_ENV === "development"
+                ? "http://localhost:3000/"
+                : "https://sh.phyr.in/") + res.link.publicId
+            );
+            toast.remove();
+            setIsLoading(false);
+            toast.success("Success");
+          } else {
+            toast.remove();
+            toast.error(res.message);
+            console.log(res.message);
+            setIsLoading(false);
+          }
+        })
+        .catch((e) => console.error(e));
     }
   };
 
@@ -110,7 +72,8 @@ export default function Home() {
     } else {
       setOpen(false);
     }
-  }, [url]);
+    if (!isPassEnabled) setPassword("");
+  }, [url, isPassEnabled]);
 
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
