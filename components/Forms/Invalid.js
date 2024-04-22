@@ -42,7 +42,7 @@ function Invalid() {
               className="bg-neutral-200 text-neutral-800 w-fit px-4"
             >
               <div className="flex space-x-2 px-2 items-center">
-                <span>Shorten fresh</span>
+                <span>Go home</span>
                 <IconRight />
               </div>
             </Button>

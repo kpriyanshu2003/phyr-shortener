@@ -16,7 +16,7 @@ function Layout({ children }) {
         }}
       >
         <Navbar />
-        {children}
+        <div className="min-h-screen">{children}</div>
         <Spacer y={100} />
         <Footer />
       </GlobalState.Provider>

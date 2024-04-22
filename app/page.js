@@ -23,6 +23,7 @@ import randomstring from "randomstring";
 import { validateUrl } from "@/utils/validateURL";
 import Advertisement from "@/components/Advertisement";
 import Banner from "@/components/Banner";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -109,7 +110,6 @@ export default function Home() {
     <div>
       <Banner />
       <Spacer y={100} />
-
       <div className="w-full">
         <div className="max-w-3xl mx-auto h-full">
           <h2 className="text-4xl text-center font-semibold">
@@ -262,7 +262,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       <div className="flex gap-3 mt-7 items-center justify-center">
         <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
           <span>History</span>
@@ -273,15 +272,12 @@ export default function Home() {
           <RightTop />
         </div>
       </div>
-
       <img
         src="https://substackcdn.com/image/fetch/w_1200,h_600,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Faebc98ba-7fef-4b55-8763-12f7b76f46ec_1620x1080.png"
         className="h-32 mx-auto mt-16"
         alt=""
       />
-
       <Features />
-
       <div className="flex items-center justify-center mt-32">
         <Advertisement />
       </div>
