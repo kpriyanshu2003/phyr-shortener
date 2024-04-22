@@ -21,6 +21,8 @@ import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import randomstring from "randomstring";
 import { validateUrl } from "@/utils/validateURL";
+import Advertisement from "@/components/Advertisement";
+import Banner from "@/components/Banner";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -105,6 +107,7 @@ export default function Home() {
 
   return (
     <div>
+      <Banner />
       <Spacer y={100} />
 
       <div className="w-full">
@@ -280,22 +283,7 @@ export default function Home() {
       <Features />
 
       <div className="flex items-center justify-center mt-32">
-        <Link href="https://phyr.global" className="w-fit mx-auto">
-          <div className="w-fit flex items-center border rounded-xl border-neutral-200 p-3 shadow-xl shadow-neutral-100/0 transition-all hover:shadow-neutral-200 hover:scale-100">
-            <div className="h-14 w-14 rounded-md bg-lime-300 p-2">
-              <img src="/phyr-logo.svg" className="h-full w-full" alt="" />
-            </div>
-            <div className="ml-4">
-              <div className="flex items-start justify-between">
-                <h3 className="text-lg font-semibold">Phyr Studios</h3>
-                <RightTop />
-              </div>
-              <p className="text-sm mt-1 text-neutral-600">
-                design, develop, and deploy digital products.
-              </p>
-            </div>
-          </div>
-        </Link>
+        <Advertisement />
       </div>
     </div>
   );
