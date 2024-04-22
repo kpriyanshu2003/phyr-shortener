@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-const CheckRegex = (str) => {
+const checkRegex = (str) => {
   var pattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol
       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
@@ -23,7 +23,7 @@ export const validateUrl = (url, customUrl, isPassEnabled, password) => {
   if (url.length === 0) {
     toast.error("URL is required");
     return false;
-  } else if (!CheckRegex(url)) {
+  } else if (!checkRegex(url)) {
     toast.error("Page URL is invalid");
     return false;
   } else if (customUrl.length > 0 && customUrl.length < 3) {
