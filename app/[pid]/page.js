@@ -1,6 +1,6 @@
 import Invalid from "@/components/Forms/Invalid";
 import PasswordForm from "@/components/Forms/PasswordForm";
-import { getLink } from "@/prisma/link";
+import { getLink } from "@/prisma/cmd";
 import { redirect } from "next/navigation";
 import React, { Suspense } from "react";
 

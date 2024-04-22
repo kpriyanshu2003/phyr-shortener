@@ -1,6 +1,6 @@
 "use client";
 
-import { verifyPassword } from "@/prisma/link";
+import { verifyPassword } from "@/prisma/cmd";
 import { EyeClosed, EyeOpen, IconRight } from "@/static/icons";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";

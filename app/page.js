@@ -4,7 +4,7 @@
 
 import Features from "@/components/Fragments/Features";
 import GlobalState from "@/context/GlobalState";
-import { createLink } from "@/prisma/link";
+import { createLink } from "@/prisma/cmd";
 import {
   CustomizeIcon,
   EyeClosed,
@@ -82,25 +82,25 @@ export default function Home() {
         password: password.trim(),
       };
 
-      createLink(JSON.stringify(uObj))
-        .then((res) => {
-          if (res.success) {
-            console.log(
-              (process.env.NODE_ENV === "development"
-                ? "http://localhost:3000/"
-                : "https://sh.phyr.in/") + res.link.publicId
-            );
-            toast.remove();
-            setIsLoading(false);
-            toast.success("Success");
-          } else {
-            toast.remove();
-            toast.error(res.message);
-            console.log(res.message);
-            setIsLoading(false);
-          }
-        })
-        .catch((e) => console.error(e));
+      //   createLink(JSON.stringify(uObj))
+      //     .then((res) => {
+      //       if (res.success) {
+      //         console.log(
+      //           (process.env.NODE_ENV === "development"
+      //             ? "http://localhost:3000/"
+      //             : "https://sh.phyr.in/") + res.link.publicId
+      //         );
+      //         toast.remove();
+      //         setIsLoading(false);
+      //         toast.success("Success");
+      //       } else {
+      //         toast.remove();
+      //         toast.error(res.message);
+      //         console.log(res.message);
+      //         setIsLoading(false);
+      //       }
+      //     })
+      //     .catch((e) => console.error(e));
     }
   };
 
