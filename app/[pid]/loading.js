@@ -4,7 +4,7 @@ import React from "react";
 
 function Loading() {
   return (
-    <div className="h-[50vh] pt-16">
+    <div className="h-[80vh] pt-16">
       <div className="max-w-xl mx-auto w-full flex flex-col justify-center items-center">
         <div className="text-gray-600">
           <Spinner color="current" />
