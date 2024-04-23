@@ -25,8 +25,11 @@ export const createLink = async (formData) => {
         analyticsId: await checkUnique(randomString.generate(6), 1),
         password: password ? await bcrypt.hash(password, 10) : null,
       },
+      select: {
+        publicId: true,
+        analyticsId: true,
+      },
     });
-    console.log("link", link);
     return {
       success: true,
       link,

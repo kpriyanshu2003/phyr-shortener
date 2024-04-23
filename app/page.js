@@ -24,6 +24,7 @@ import { validateUrl } from "@/utils/validateURL";
 import Advertisement from "@/components/Advertisement";
 import Banner from "@/components/Banner";
 import Footer from "@/components/Footer";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -33,6 +34,11 @@ export default function Home() {
   const [isPassEnabled, setIsPassEnabled] = useState(false);
   const [isPassVisible, setIsPassVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [shortenedUrl, setShortenedUrl] = useState({
+    url: "",
+    publicId: "",
+    analyticsId: "",
+  });
 
   const handleSubmit = async () => {
     if (validateUrl(url, customUrl, isPassEnabled, password) == true) {
@@ -50,11 +56,13 @@ export default function Home() {
       createLink(JSON.stringify(tempOBJ))
         .then((res) => {
           if (res.success) {
-            console.log(
-              (process.env.NODE_ENV === "development"
-                ? "http://localhost:3000/"
-                : "https://sh.phyr.in/") + res.link.publicId
-            );
+            let shortUrl = "https://sh.phyr.in/" + res.link.publicId;
+            setShortenedUrl({
+              url: shortUrl,
+              publicId: res.link.publicId,
+              analyticsId: res.link.analyticsId,
+            });
+            setOpen(false);
             toast.remove();
             setIsLoading(false);
             toast.success("Success");
@@ -67,6 +75,16 @@ export default function Home() {
         })
         .catch((e) => console.error(e));
     }
+  };
+
+  const calculateReduction = (original, shortened) => {
+    let result = 0;
+    if (original.length > shortened.length) {
+      result = Math.floor(
+        ((original.length - shortened.length) / original.length) * 100
+      );
+    }
+    return result;
   };
 
   useEffect(() => {
@@ -100,7 +118,6 @@ export default function Home() {
           });
       }
     });
-
     return () => {
       window.removeEventListener("keydown", () => {});
     };
@@ -281,6 +298,142 @@ export default function Home() {
       <div className="flex items-center justify-center mt-32">
         <Advertisement />
       </div>
+
+      <AnimatePresence>
+        {shortenedUrl.url.length != 0 && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-10 h-full w-full bg-gradient-to-b from-black/40 to-black/80 flex items-center justify-center"
+            ></motion.div>
+          </>
+        )}
+        {shortenedUrl.url.length != 0 && (
+          <>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="fixed inset-0 z-10 h-full w-full flex items-center justify-center"
+            >
+              <div className="w-[600px] bg-white rounded-lg relative">
+                <button
+                  onClick={() => {
+                    setShortenedUrl({ url: "", publicId: "" });
+                    setCustomUrl("");
+                    setUrl("");
+                    setIsPassEnabled(false);
+                    setPassword("");
+                  }}
+                  className="absolute top-4 right-4"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.7"
+                      d="m18 18l-6-6m0 0L6 6m6 6l6-6m-6 6l-6 6"
+                    />
+                  </svg>
+                </button>
+                <div className="p-8">
+                  <div className="flex items-start justify-between">
+                    <h2 className="text-xl font-semibold">
+                      Congratulations &nbsp; 🎉
+                    </h2>
+                  </div>
+                  <p className="text-base text-neutral-600 mt-4">
+                    thousands of urls are shortened. but this one is special
+                    &nbsp; ❤️
+                  </p>
+
+                  <div className="px-4 py-3 relative text-base mt-12 rounded-lg bg-stone-50 flex items-center overflow-hidden">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M2 4.5V6h3.586a.5.5 0 0 0 .353-.146L7.293 4.5L5.939 3.146A.5.5 0 0 0 5.586 3H3.5A1.5 1.5 0 0 0 2 4.5m-1 0A2.5 2.5 0 0 1 3.5 2h2.086a1.5 1.5 0 0 1 1.06.44L8.207 4H12.5A2.5 2.5 0 0 1 15 6.5v.757a5.5 5.5 0 0 0-1-.657v-.1A1.5 1.5 0 0 0 12.5 5H8.207l-1.56 1.56A1.5 1.5 0 0 1 5.585 7H2v4.5A1.5 1.5 0 0 0 3.5 13h2.707q.149.524.393 1H3.5A2.5 2.5 0 0 1 1 11.5zm9.55 3.65c-.29.727-.493 1.722-.54 2.85h2.98c-.047-1.128-.25-2.123-.54-2.85c-.167-.417-.353-.722-.535-.914c-.18-.19-.32-.236-.415-.236s-.235.046-.415.236c-.182.192-.368.497-.535.914m-.72-.83a5 5 0 0 0-.209.459C9.277 8.64 9.056 9.766 9.01 11H7.027A4.5 4.5 0 0 1 9.83 7.32m3.34 0q.112.218.208.459c.345.862.565 1.987.612 3.221h1.982a4.5 4.5 0 0 0-2.802-3.68M15.972 12H13.99c-.047 1.234-.267 2.36-.612 3.221q-.096.24-.208.459A4.5 4.5 0 0 0 15.972 12M11.5 16c.094 0 .235-.046.415-.236c.182-.192.368-.497.535-.914c.29-.727.493-1.722.54-2.85h-2.98c.047 1.128.25 2.123.54 2.85c.167.417.353.722.535.914c.18.19.32.236.415.236m-1.67-.32A4.5 4.5 0 0 1 7.026 12H9.01c.047 1.234.268 2.36.612 3.221q.097.24.208.459"
+                      />
+                    </svg>
+                    <a
+                      className="ml-4 text-neutral-800"
+                      href={shortenedUrl.url}
+                      target="_blank"
+                    >
+                      {shortenedUrl.url}
+                    </a>
+
+                    <div className="absolute right-0 inset-y-0 h-full w-12 p-1 flex items-center justify-center">
+                      <Button
+                        onClick={() => {
+                          try {
+                            if (
+                              navigator.clipboard.writeText(shortenedUrl.url)
+                            ) {
+                              toast.success("Copied to clipboard");
+                            }
+                          } catch (error) {
+                            toast.error("Failed to copy to clipboard");
+                          }
+                        }}
+                        radius="sm"
+                        isIconOnly
+                        className="bg-lime-300"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="25"
+                          height="25"
+                          viewBox="0 0 24 24"
+                        >
+                          <g
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                          >
+                            <path d="M7 9v6a4 4 0 0 0 4 4h4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1z" />
+                            <path d="M13 3.054V7H9.2a2 2 0 0 1 .281-.432l2.46-2.87A2 2 0 0 1 13 3.054M15 3v4a2 2 0 0 1-2 2H9v6a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+                          </g>
+                        </svg>
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-center mt-6 space-x-2">
+                    <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
+                      <span>Open url</span>
+                      <RightTop />
+                    </div>
+                    <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
+                      <span>Analytics</span>
+                      <RightTop />
+                    </div>
+                  </div>
+
+                  <p className="mt-16 leading-7 text-sm text-neutral-600">
+                    😇 &nbsp; Your shortened url contains{" "}
+                    {calculateReduction(url, shortenedUrl.url)}% fewer
+                    characters than the original url.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
