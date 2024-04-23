@@ -5,7 +5,7 @@ import React from "react";
 function Footer() {
   return (
     <div className="bg-[#090909] py-20 md:px-24 px-6">
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-16">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-16 max-w-7xl mx-auto">
         <div className="col-span-2 md:col-span-1 lg:col-span-2">
           <h2 className="font-semibold text-3xl text-white">Shortener.</h2>
           <Link href="https://phyr.global">
