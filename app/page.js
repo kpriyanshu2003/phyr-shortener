@@ -413,14 +413,20 @@ export default function Home() {
                   </div>
 
                   <div className="flex items-center justify-center mt-6 space-x-2">
-                    <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
+                    <Link
+                      href={shortenedUrl.url}
+                      className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3"
+                    >
                       <span>Open url</span>
                       <RightTop />
-                    </div>
-                    <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
+                    </Link>
+                    <Link
+                      href={`/a/${shortenedUrl.analyticsId}`}
+                      className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3"
+                    >
                       <span>Analytics</span>
                       <RightTop />
-                    </div>
+                    </Link>
                   </div>
 
                   <p className="mt-16 leading-7 text-sm text-neutral-600">
