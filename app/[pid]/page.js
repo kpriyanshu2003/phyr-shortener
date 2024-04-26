@@ -26,10 +26,10 @@ async function page({ params }) {
   if (!url.startsWith("http://") && !url.startsWith("https://")) {
     url = "http://" + url;
   }
-  const countryLookUp = await axios.get("https://ipapi.co/json/");
+  //const countryLookUp = await axios.get("https://ipapi.co/json/");
 
   // TODO : Handle Errors
-  return updateAnalytics(pid, countryLookUp.data.city)
+  return updateAnalytics(pid, "Bhubaneswar")
     .then(redirect(url))
     .catch((e) => console.error(e));
 }
