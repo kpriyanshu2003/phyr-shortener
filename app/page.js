@@ -41,8 +41,9 @@ export default function Home() {
   });
 
   const saveToHistory = async (url, shortenId, analyticsId, isProtected) => {
-    let history = localStorage.getItem("shortening-history") || "[]";
-    history = JSON.parse(history);
+    let history = localStorage.getItem("shortening-history")
+      ? JSON.parse(localStorage.getItem("shortening-history"))
+      : [];
     history.push({
       url: url,
       shortenId: shortenId,
