@@ -26,9 +26,12 @@ async function page({ params }) {
   if (!url.startsWith("http://") && !url.startsWith("https://")) {
     url = "http://" + url;
   }
-  // TODO : Handle Errors
-  return updateAnalytics(pid, "")
-    .then(redirect(url))
+
+  return updateAnalytics(pid, "unknown")
+    .then((res) => {
+      if (res.success === false) throw new Error(res.message);
+    })
+    .then(() => redirect(url))
     .catch((e) => console.error(e));
 }
 
