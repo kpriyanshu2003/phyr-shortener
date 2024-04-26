@@ -10,6 +10,25 @@ export const metadata = {
   title: "Shortener | A product of Phyr",
   description:
     "Shorten your links with ease. Share them with the world. Protect them with a password.",
+  openGraph: {
+    title: "Shortener | A product of Phyr",
+    description:
+      "Shorten your links with ease. Share them with the world. Protect them with a password.",
+    type: "website",
+    authors: ["Priyangsu Banerjee", "Masoom Choudhury"],
+    images: [
+      {
+        url: "https://sh.phyr.global/open-graph.png",
+        width: 800,
+        height: 600,
+      },
+      {
+        url: "https://sh.phyr.global/open-graph.png",
+        width: 1800,
+        height: 1600,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
