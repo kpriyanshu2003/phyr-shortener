@@ -93,8 +93,11 @@ export default function Home() {
     } else {
       setOpen(false);
     }
+  }, [url]);
+
+  useEffect(() => {
     if (!isPassEnabled) setPassword("");
-  }, [url, isPassEnabled]);
+  }, [isPassEnabled]);
 
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
