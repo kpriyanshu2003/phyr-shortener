@@ -8,12 +8,13 @@ function History() {
   const [history, setHistory] = useState([]);
 
   const getHistory = async () => {
-    let res = localStorage.getItem("shortening-history") || "[]";
-    res = JSON.parse(res);
+    let res = localStorage.getItem("shortening-history")
+      ? JSON.parse(localStorage.getItem("shortening-history"))
+      : [];
     setHistory(res);
   };
 
-  const HistoryCard = ({ data }) => {
+  const HistoryCard = ({ data, index }) => {
     return (
       <div className="py-4 px-6 rounded-2xl bg-gray-50 hover:shadow-md hover:shadow-neutral-500/10 transition-all">
         <div className="flex items-center space-x-3 text-neutral-800">
@@ -61,6 +62,7 @@ function History() {
           </button>
           <Button
             isIconOnly
+            onClick={() => deleteHistory(index)}
             className="bg-lime-200 ml-auto h-10 w-10 rounded-xl flex items-center justify-center"
           >
             <svg
@@ -78,6 +80,15 @@ function History() {
         </div>
       </div>
     );
+  };
+
+  const deleteHistory = (index) => {
+    let res = localStorage.getItem("shortening-history")
+      ? JSON.parse(localStorage.getItem("shortening-history"))
+      : [];
+    res.splice(index, 1);
+    localStorage.setItem("shortening-history", JSON.stringify(res));
+    setHistory(res);
   };
 
   useEffect(() => {
@@ -103,7 +114,7 @@ function History() {
         </svg>
       </div>
       <h2 className="text-2xl md:text-2xl text-center font-semibold leading-[1.5] mt-5">
-        Recent shortenings
+        {history.length > 0 ? "Recent shortenings" : "No History"}
       </h2>
       <p className="text-sm text-center mt-3 text-neutral-500">
         Your recent shortenings will appear here.
@@ -111,7 +122,7 @@ function History() {
 
       <div className="max-w-7xl mx-auto grid grid-cols-3 mt-10 gap-4">
         {history.map((data, index) => (
-          <HistoryCard data={data} key={index} />
+          <HistoryCard data={data} key={index} index={index} />
         ))}
       </div>
     </div>
