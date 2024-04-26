@@ -252,7 +252,7 @@ export default function Home() {
                     }}
                     className="text-sm text-neutral-400 flex items-center justify-between overflow-hidden transition-all duration-500"
                   >
-                    <div className="w-fit flex items-center space-x-2 border-l border-neutral-500 ml-2 pl-7">
+                    <div className="w-fit flex items-center space-x-2 border-l border-neutral-500 ml-2 pl-4 md:pl-7">
                       <p>Password</p>
                     </div>
                     <div className="flex items-center text-right dark">
