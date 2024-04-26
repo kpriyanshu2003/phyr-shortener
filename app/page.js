@@ -296,7 +296,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex gap-3 mt-7 items-center justify-center">
+      <div className="flex gap-3 mt-0 items-center justify-center">
         <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
           <span>History</span>
           <RightTop />
