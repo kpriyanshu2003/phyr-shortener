@@ -28,7 +28,9 @@ async function page({ params }) {
   }
 
   return updateAnalytics(pid, "unknown")
-    .then((res) => console.log(res))
+    .then((res) => {
+      if (res.success === false) console.error(res);
+    })
     .catch((e) => console.error(e))
     .finally(() => redirect(url));
 }
