@@ -126,17 +126,15 @@ export default function Home() {
   return (
     <div>
       <Banner />
-      <Spacer y={100} />
-      <div className="w-full">
+      <div className="w-full p-5 mt-12 md:mt-20">
         <div className="max-w-3xl mx-auto h-full">
-          <h2 className="text-4xl text-center font-semibold">
+          <h2 className="text-4xl md:text-4xl text-center font-semibold leading-[1.5]">
             Shorten. Share. Analyze.
           </h2>
-          <p className="text-center mt-4 text-gray-500 text-sm">
+          <p className="text-center mt-4 leading-8 text-gray-500 text-sm">
             Shorten your long URLs, share them with your friends, and analyze
             them for free.
           </p>
-
           <div className="w-full mx-auto max-w-xl bg-stone-900 shadow-xl shadow-neutral-300 rounded-xl mt-8">
             <div className="px-5">
               <form
@@ -153,7 +151,7 @@ export default function Home() {
                   }}
                   value={url}
                   type="text"
-                  placeholder="paste your link here, e.g. https://example.com"
+                  placeholder="paste your link here (https://example.com)"
                   name=""
                   id="main-url"
                 />
@@ -295,7 +293,7 @@ export default function Home() {
         alt=""
       />
       <Features />
-      <div className="flex items-center justify-center mt-32">
+      <div className="flex items-center justify-center mt-32 px-5">
         <Advertisement />
       </div>
 

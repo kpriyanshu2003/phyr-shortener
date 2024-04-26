@@ -27,7 +27,7 @@ function Navbar() {
   return (
     <>
       <nav className="h-20">
-        <div className="flex h-full items-center max-w-7xl mx-auto justify-between px-6">
+        <div className="flex h-full items-center max-w-7xl mx-auto justify-between px-4">
           <div className="flex items-center">
             <img className="h-12" src="/logo.svg" alt="" />
             <h2 className="font-semibold ml-2 text-lg">Shortener.</h2>
