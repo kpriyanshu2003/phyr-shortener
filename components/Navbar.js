@@ -3,8 +3,10 @@
 import GlobalState from "@/context/GlobalState";
 import { CommandIcon, IconRight, MenuIcon } from "@/static/icons";
 import { Button } from "@nextui-org/react";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 
 function Navbar() {
   const pathname = usePathname();
@@ -28,17 +30,29 @@ function Navbar() {
     <>
       <nav className="h-20">
         <div className="flex h-full items-center max-w-7xl mx-auto justify-between px-4">
-          <div className="flex items-center">
-            <img className="h-12" src="/logo.svg" alt="" />
-            <h2 className="font-semibold ml-2 text-lg">Shortener.</h2>
-          </div>
+          <Link href="/">
+            <div className="flex items-center">
+              <img className="h-12" src="/logo.svg" alt="" />
+              <h2 className="font-semibold ml-2 text-lg">Shortener.</h2>
+            </div>
+          </Link>
 
           <ul className="hidden lg:flex items-center space-x-10 text-sm">
-            <li>Home</li>
-            <li>API Docs</li>
-            <li>Customization</li>
-            <li>Pricing</li>
-            <li>Products</li>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
+              <Link href="/">API Docs</Link>
+            </li>
+            <li>
+              <Link href="/">Customization</Link>
+            </li>
+            <li>
+              <Link href="/h">History</Link>
+            </li>
+            <li>
+              <Link href="/">Products</Link>
+            </li>
           </ul>
 
           <div className="flex items-center">

@@ -40,12 +40,13 @@ export default function Home() {
     analyticsId: "",
   });
 
-  const saveToHistory = async (url, shortenId, isProtected) => {
+  const saveToHistory = async (url, shortenId, analyticsId, isProtected) => {
     let history = localStorage.getItem("shortening-history") || "[]";
     history = JSON.parse(history);
     history.push({
       url: url,
       shortenId: shortenId,
+      analyticsId: analyticsId,
       isProtected: isProtected,
       date: new Date().toLocaleString(),
     });
@@ -81,6 +82,7 @@ export default function Home() {
             saveToHistory(
               url,
               res.link.publicId,
+              res.link.analyticsId,
               password.length > 0 ? true : false
             );
           } else {
@@ -297,10 +299,12 @@ export default function Home() {
         </div>
       </div>
       <div className="flex gap-3 mt-0 items-center justify-center">
-        <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
-          <span>History</span>
-          <RightTop />
-        </div>
+        <Link href="/h">
+          <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
+            <span>History</span>
+            <RightTop />
+          </div>
+        </Link>
         <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
           <span>Analytics</span>
           <RightTop />
@@ -335,7 +339,7 @@ export default function Home() {
               exit={{ opacity: 0, scale: 0.9 }}
               className="fixed inset-0 z-10 h-full w-full flex items-center justify-center"
             >
-              <div className="w-[600px] bg-white rounded-lg relative">
+              <div className="w-[97%] md:w-[600px] bg-white rounded-lg relative">
                 <button
                   onClick={() => {
                     setShortenedUrl({ url: "", publicId: "" });
@@ -362,13 +366,13 @@ export default function Home() {
                     />
                   </svg>
                 </button>
-                <div className="p-8">
+                <div className="p-6 md:p-8">
                   <div className="flex items-start justify-between">
                     <h2 className="text-xl font-semibold">
                       Congratulations &nbsp; 🎉
                     </h2>
                   </div>
-                  <p className="text-base text-neutral-600 mt-4">
+                  <p className="text-base text-neutral-600 leading-8 mt-3 md:mt-4">
                     thousands of urls are shortened. but this one is special
                     &nbsp; ❤️
                   </p>
