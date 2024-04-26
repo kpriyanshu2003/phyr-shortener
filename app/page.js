@@ -40,6 +40,18 @@ export default function Home() {
     analyticsId: "",
   });
 
+  const saveToHistory = async (url, shortenId, isProtected) => {
+    let history = localStorage.getItem("shortening-history") || "[]";
+    history = JSON.parse(history);
+    history.push({
+      url: url,
+      shortenId: shortenId,
+      isProtected: isProtected,
+      date: new Date().toLocaleString(),
+    });
+    localStorage.setItem("shortening-history", JSON.stringify(history));
+  };
+
   const handleSubmit = async () => {
     if (validateUrl(url, customUrl, isPassEnabled, password) == true) {
       setIsLoading(true);
@@ -66,6 +78,11 @@ export default function Home() {
             toast.remove();
             setIsLoading(false);
             toast.success("Success");
+            saveToHistory(
+              url,
+              res.link.publicId,
+              password.length > 0 ? true : false
+            );
           } else {
             toast.remove();
             toast.error(res.message);
