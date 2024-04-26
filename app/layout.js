@@ -18,12 +18,12 @@ export const metadata = {
     authors: ["Priyangsu Banerjee", "Masoom Choudhury"],
     images: [
       {
-        url: "https://sh.phyr.global/open-graph.png",
+        url: "https://sh.phyr.in/open-graph.png",
         width: 800,
         height: 600,
       },
       {
-        url: "https://sh.phyr.global/open-graph.png",
+        url: "https://sh.phyr.in/open-graph.png",
         width: 1800,
         height: 1600,
       },
