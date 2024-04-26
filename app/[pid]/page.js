@@ -28,11 +28,9 @@ async function page({ params }) {
   }
 
   return updateAnalytics(pid, "unknown")
-    .then((res) => {
-      if (res.success === false) throw new Error(res.message);
-    })
-    .then(() => redirect(url))
-    .catch((e) => console.error(e));
+    .then((res) => console.log(res))
+    .catch((e) => console.error(e))
+    .finally(() => redirect(url));
 }
 
 export default page;
