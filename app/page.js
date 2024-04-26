@@ -261,8 +261,7 @@ export default function Home() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="・・・・・・・"
-                        size={15}
-                        className="px-3 pb-1 rounded-none bg-transparent text-neutral-100 border-neutral-600 outline-none focus-within:border-neutral-500 text-right border-b transition-all"
+                        className="px-3 pb-1 w-32 rounded-none bg-transparent text-neutral-100 border-neutral-600 outline-none focus-within:border-neutral-500 text-right border-b transition-all"
                         name=""
                         id=""
                       />
