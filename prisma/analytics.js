@@ -19,7 +19,11 @@ export const getAnalytics = async (aid) => {
         },
       },
     });
-    return { success: true, analytics };
+    if (analytics) {
+      return { success: true, analytics };
+    } else {
+      return { success: false, message: "No analytics found" };
+    }
   } catch (e) {
     console.error(e);
     return { success: false, message: e.message };
