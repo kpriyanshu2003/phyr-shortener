@@ -306,10 +306,12 @@ export default function Home() {
             <RightTop />
           </div>
         </Link>
-        <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
-          <span>Analytics</span>
-          <RightTop />
-        </div>
+        <Link href="/h">
+          <div className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
+            <span>Analytics</span>
+            <RightTop />
+          </div>
+        </Link>
       </div>
       <img
         src="https://substackcdn.com/image/fetch/w_1200,h_600,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Faebc98ba-7fef-4b55-8763-12f7b76f46ec_1620x1080.png"

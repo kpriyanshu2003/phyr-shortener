@@ -52,14 +52,19 @@ function History() {
           <span className="text-sm">sh.phyr.in/{data.shortenId}</span>
         </div>
         <div className="flex gap-3 items-center mt-5">
-          <button className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
-            <span>Analytics</span>
-            <RightTop />
-          </button>
-          <button className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
-            <span>Open</span>
-            <RightTop />
-          </button>
+          <Link href={`/a/${data.analyticsId}`}>
+            <button className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
+              <span>Analytics</span>
+              <RightTop />
+            </button>
+          </Link>
+          <Link href={`https://sh.phyr.in/${data.shortenId}`} target="_blank">
+            <button className="border flex items-center rounded-full border-neutral-300 text-neutral-700 text-sm py-1 px-3">
+              <span>Open</span>
+              <RightTop />
+            </button>
+          </Link>
+
           <Button
             isIconOnly
             onClick={() => deleteHistory(index)}
@@ -120,7 +125,7 @@ function History() {
         Your recent shortenings will appear here.
       </p>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-3 mt-10 gap-4">
+      <div className="max-w-7xl px-5 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 gap-4">
         {history.map((data, index) => (
           <HistoryCard data={data} key={index} index={index} />
         ))}
