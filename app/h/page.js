@@ -1,8 +1,10 @@
 "use client";
+import { deleteAnalytics } from "@/prisma/analytics";
 import { RightTop } from "@/static/icons";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 function History() {
   const [history, setHistory] = useState([]);
@@ -67,7 +69,7 @@ function History() {
 
           <Button
             isIconOnly
-            onClick={() => deleteHistory(index)}
+            onClick={() => deleteHistory(index, data.analyticsId)}
             className="bg-lime-200 ml-auto h-10 w-10 rounded-xl flex items-center justify-center"
           >
             <svg
@@ -87,13 +89,21 @@ function History() {
     );
   };
 
-  const deleteHistory = (index) => {
+  const deleteHistory = async (index, aid) => {
+    toast.loading("Deleting...");
+    let { success } = await deleteAnalytics(aid);
+    toast.dismiss();
+    if (!success) {
+      toast.error("Failed to delete");
+      return;
+    }
     let res = localStorage.getItem("shortening-history")
       ? JSON.parse(localStorage.getItem("shortening-history"))
       : [];
     res.splice(index, 1);
     localStorage.setItem("shortening-history", JSON.stringify(res));
     setHistory(res);
+    toast.success("Deleted successfully");
   };
 
   useEffect(() => {

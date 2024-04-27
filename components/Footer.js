@@ -19,8 +19,8 @@ function Footer() {
         <div className="col-span-2 md:col-span-1">
           <h2 className="text-lg font-semibold text-neutral-300">About</h2>
           <p className="text-xs mt-3 text-neutral-400 leading-6">
-            Rasoi is a digital menu software that helps restaurants to digitize
-            their menu and provide a better experience to their customers.
+            Shorten your long URLs, share them with your friends, and analyze
+            them for free.
           </p>
           <p className="text-xs mt-3 text-neutral-300 leading-6">
             hello@phyr.global
@@ -29,14 +29,17 @@ function Footer() {
 
         <div className="lg:pl-16">
           <h2 className="text-lg font-semibold text-neutral-300">Sitemap</h2>
-          <div className="space-y-2">
-            <p className="text-xs mt-3 text-neutral-400 leading-6">Home</p>
-            <p className="text-xs mt-3 text-neutral-400 leading-6">Features</p>
-            <p className="text-xs mt-3 text-neutral-400 leading-6">
-              Testimonials
-            </p>
-            <p className="text-xs mt-3 text-neutral-400 leading-6">Contact</p>
-          </div>
+          <ul className="space-y-2">
+            <li className="text-xs mt-3 text-neutral-400 leading-6">
+              <Link href="/">Home</Link>
+            </li>
+            <li className="text-xs mt-3 text-neutral-400 leading-6">
+              <Link href="/#features">Features</Link>
+            </li>
+            <li className="text-xs mt-3 text-neutral-400 leading-6">
+              <Link href="https://phyr.global/contact">Contact</Link>
+            </li>
+          </ul>
         </div>
         <div className="lg:pl-16">
           <h2 className="text-lg font-semibold text-neutral-300">Socials</h2>

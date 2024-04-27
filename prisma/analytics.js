@@ -30,6 +30,20 @@ export const getAnalytics = async (aid) => {
   }
 };
 
+export const deleteAnalytics = async (aid) => {
+  try {
+    await prisma.analytics.delete({
+      where: {
+        analyticsId: aid,
+      },
+    });
+    return { success: true };
+  } catch (e) {
+    console.error(e);
+    return { success: false, message: e.message };
+  }
+};
+
 export const updateAnalytics = async (pid, country) => {
   try {
     let linkData = await prisma.link.findUnique({

@@ -41,17 +41,14 @@ function Navbar() {
             <li>
               <Link href="/">Home</Link>
             </li>
-            <li>
-              <Link href="/">API Docs</Link>
+            <li className="cursor-pointer" onClick={() => toast("Coming soon")}>
+              API Docs
             </li>
-            <li>
-              <Link href="/">Customization</Link>
+            <li className="cursor-pointer" onClick={() => toast("Coming soon")}>
+              Customization
             </li>
             <li>
               <Link href="/h">History</Link>
-            </li>
-            <li>
-              <Link href="/">Products</Link>
             </li>
           </ul>
 
@@ -73,7 +70,13 @@ function Navbar() {
             >
               <MenuIcon />
             </Button>
-            <button className="text-sm hidden lg:block ml-6">Feedback</button>
+
+            <a
+              href="https://phyr.global/feedback?project=Phyr%20link%20shortener"
+              className="text-sm hidden lg:block ml-6"
+            >
+              Feedback
+            </a>
           </div>
         </div>
       </nav>

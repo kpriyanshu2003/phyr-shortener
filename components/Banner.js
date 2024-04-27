@@ -9,10 +9,7 @@ function Banner() {
           <span className="h-8 w-8 flex items-center justify-center bg-lime-100 rounded-full mr-4">
             🎉
           </span>
-          <span>API documentation is now available</span>
-          <span className="ml-3">
-            <IconRight />
-          </span>
+          <span>API documentation coming soon</span>
         </div>
       </div>
     </div>
