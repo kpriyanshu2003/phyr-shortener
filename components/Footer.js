@@ -43,11 +43,23 @@ function Footer() {
         </div>
         <div className="lg:pl-16">
           <h2 className="text-lg font-semibold text-neutral-300">Socials</h2>
-          <div className="space-y-2">
-            <p className="text-xs mt-3 text-neutral-400 leading-6">Instagram</p>
-            <p className="text-xs mt-3 text-neutral-400 leading-6">Twitter</p>
-            <p className="text-xs mt-3 text-neutral-400 leading-6">Facebook</p>
-          </div>
+          <ul className="space-y-2">
+            <li className="text-xs mt-3 text-neutral-400 leading-6">
+              <Link
+                href={
+                  "https://www.instagram.com/phyr.studios?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                }
+              >
+                Instagram
+              </Link>
+            </li>
+            <li className="text-xs mt-3 text-neutral-400 leading-6">
+              <Link href="https://www.linkedin.com/company/phyr">LinkedIn</Link>
+            </li>
+            <li className="text-xs mt-3 text-neutral-400 leading-6">
+              <Link href="https://www.facebook.com/phyr.global">Facebook</Link>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
