@@ -21,10 +21,10 @@ function Loading() {
           />
         </svg>
 
-        <h2 className="text-2xl font-semibold mt-6">
+        <h2 className="text-2xl font-semibold mt-6 text-center">
           Analytics Load in progress...
         </h2>
-        <p className="text-base text-neutral-600 mt-6">
+        <p className="text-base text-neutral-600 mt-6 text-center">
           our servers are verifying the request, please wait a moment
         </p>
       </div>

@@ -1,13 +1,25 @@
 "use server";
 
+import { link } from "@nextui-org/react";
 import prisma from "./prisma";
 
-export const getAnalytics = async (url) => {
+export const getAnalytics = async (aid) => {
   try {
-    const { count } = await prisma.analytics.findUnique({
-      where: {},
+    const analytics = await prisma.analytics.findUnique({
+      where: {
+        analyticsId: aid,
+      },
+      select: {
+        clicks: true,
+        analytics: {
+          select: {
+            publicId: true,
+            url: true,
+          },
+        },
+      },
     });
-    return { success: true, count };
+    return { success: true, analytics };
   } catch (e) {
     console.error(e);
     return { success: false, message: e.message };
