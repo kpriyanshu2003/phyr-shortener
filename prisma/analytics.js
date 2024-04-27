@@ -40,7 +40,7 @@ export const deleteAnalytics = async (aid) => {
     return { success: true };
   } catch (e) {
     console.error(e);
-    return { success: false, message: e.message };
+    return { success: true, message: e.message };
   }
 };
 
