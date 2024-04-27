@@ -21,6 +21,7 @@
     "prisma": "^5.13.0",
     "randomstring": "^1.3.0",
     "react": "^18",
+    "react-animated-numbers": "^0.18.0",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1"
   },
