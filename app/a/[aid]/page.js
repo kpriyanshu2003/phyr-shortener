@@ -26,7 +26,7 @@ async function page({ params }) {
         Analytics Report
       </h2>
       <p className="text-sm text-center mt-3 text-neutral-500">
-        Your recent shortenings will appear here.
+        Impressions and clicks on your shortened url
       </p>
 
       <div className="w-full max-w-[500px] max-h-[500px] mt-10 relative mx-auto">
