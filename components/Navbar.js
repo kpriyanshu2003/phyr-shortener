@@ -44,8 +44,8 @@ function Navbar() {
             <li className="cursor-pointer" onClick={() => toast("Coming soon")}>
               API Docs
             </li>
-            <li className="cursor-pointer" onClick={() => toast("Coming soon")}>
-              Customization
+            <li>
+              <Link href="/#features">Features</Link>
             </li>
             <li>
               <Link href="/h">History</Link>

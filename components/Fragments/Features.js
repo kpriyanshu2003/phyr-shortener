@@ -2,7 +2,7 @@ import React from "react";
 
 function Features() {
   return (
-    <div className="mt-24">
+    <div id="features" className="mt-24">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 lg:gap-16 px-10 md:px-20">
         <div className="flex flex-col items-center text-center">
           <div className="text-lime-300 bg-neutral-800 h-12 w-12 rounded-full flex items-center justify-center">
