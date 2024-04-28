@@ -1,5 +1,6 @@
 "use client";
 
+import { updateAnalytics } from "@/prisma/analytics";
 import { verifyPassword } from "@/prisma/cmd";
 import { EyeClosed, EyeOpen, IconRight } from "@/static/icons";
 import { Button } from "@nextui-org/react";
@@ -23,7 +24,13 @@ function PasswordForm({ pid }) {
       .then((res) => {
         if (res.success) {
           setLoading(false);
-          router.push(res.url);
+          updateAnalytics(pid, "unknown")
+            .then((res) => {
+              if (res.success === false) console.error(res);
+              console.log("success");
+            })
+            .catch((e) => console.error(e))
+            .finally(() => router.push(res.url));
         } else {
           toast.error(res.error);
           setLoading(false);

@@ -30,6 +30,7 @@ async function page({ params }) {
   return updateAnalytics(pid, "unknown")
     .then((res) => {
       if (res.success === false) console.error(res);
+      console.log("wtd");
     })
     .catch((e) => console.error(e))
     .finally(() => redirect(url));
