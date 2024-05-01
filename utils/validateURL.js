@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-const checkRegex = (str) => {
+export const checkRegex = (str) => {
   var pattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol
       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
