@@ -131,8 +131,9 @@ function History() {
       <h2 className="text-2xl md:text-2xl text-center font-semibold leading-[1.5] mt-5">
         {history.length > 0 ? "Recent shortenings" : "No History"}
       </h2>
-      <p className="text-sm text-center mt-3 text-neutral-500">
-        Your recent shortenings will appear here.
+      <p className="text-sm text-center mt-3 text-neutral-500 leading-7 px-3">
+        History is stored in your browser. Clearing browser data will remove the
+        history.
       </p>
 
       <div className="max-w-7xl px-5 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 gap-4">
