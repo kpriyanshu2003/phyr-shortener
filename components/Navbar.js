@@ -41,8 +41,10 @@ function Navbar() {
             <li>
               <Link href="/">Home</Link>
             </li>
-            <li className="cursor-pointer" onClick={() => toast("Coming soon")}>
-              API Docs
+            <li>
+              <Link href="https://phyrs-studios.gitbook.io/shortener-by-phyr/shorten-a-new-link">
+                API Docs
+              </Link>
             </li>
             <li>
               <Link href="/#features">Features</Link>
