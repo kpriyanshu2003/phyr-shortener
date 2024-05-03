@@ -1,22 +1,30 @@
 import toast from "react-hot-toast";
 
 export const checkRegex = (str) => {
-  var pattern = new RegExp(
-    "^(https?:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
-    "i"
-  ); // fragment locator
+  //   var pattern = new RegExp(
+  //     "^(https?:\\/\\/)?" + // protocol
+  //       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+  //       "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+  //       "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+  //       "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+  //       "(\\#[-a-z\\d_]*)?$",
+  //     "i"
+  //   ); // fragment locator
 
-  var localhost = new RegExp(
-    "^(https?:\\/\\/)?(localhost)(:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$",
-    "i"
+  //   var localhost = new RegExp(
+  //     "^(https?:\\/\\/)?(localhost)(:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$",
+  //     "i"
+  //   );
+
+  //   return !!pattern.test(str) || !!localhost.test(str);
+
+  // only check if starts with http or https or localhost
+  return (
+    str.startsWith("http://") ||
+    str.startsWith("https://") ||
+    str.startsWith("wwww./") ||
+    str.startsWith("localhost")
   );
-
-  return !!pattern.test(str) || !!localhost.test(str);
 };
 
 export const validateUrl = (url, customUrl, isPassEnabled, password) => {
