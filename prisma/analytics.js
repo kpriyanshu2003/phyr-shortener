@@ -30,13 +30,20 @@ export const getAnalytics = async (aid) => {
   }
 };
 
-export const deleteAnalytics = async (aid) => {
+export const deleteLink = async (aid) => {
   try {
     await prisma.analytics.delete({
       where: {
         analyticsId: aid,
       },
     });
+
+    await prisma.link.delete({
+      where: {
+        analyticsId: aid,
+      },
+    });
+
     return { success: true };
   } catch (e) {
     console.error(e);

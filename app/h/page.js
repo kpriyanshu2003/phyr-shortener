@@ -1,5 +1,5 @@
 "use client";
-import { deleteAnalytics } from "@/prisma/analytics";
+import { deleteLink } from "@/prisma/analytics";
 import { RightTop } from "@/static/icons";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
@@ -91,7 +91,7 @@ function History() {
 
   const deleteHistory = async (index, aid) => {
     toast.loading("Deleting...");
-    let { success } = await deleteAnalytics(aid);
+    let { success } = await deleteLink(aid);
     toast.dismiss();
     if (!success) {
       toast.error("Failed to delete");
