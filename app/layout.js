@@ -15,7 +15,7 @@ export const metadata = {
     description:
       "Shorten your links with ease. Share them with the world. Protect them with a password.",
     type: "website",
-    authors: ["Priyangsu Banerjee", "Masoom Choudhury"],
+    authors: ["Priyangsu Banerjee", "Masoom Choudhury", "Priyanshu Kumar"],
     images: [
       {
         url: "https://sh.phyr.in/open-graph.png",
